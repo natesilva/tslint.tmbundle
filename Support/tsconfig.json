@@ -1,0 +1,19 @@
+{
+    "compileOnSave": true,
+    "include": [
+        "src/**/*"
+    ],
+    "compilerOptions": {
+        "outDir": "build",
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": true,
+        "noImplicitReturns": true,
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "pretty": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    }
+}

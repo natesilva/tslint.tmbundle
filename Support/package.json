@@ -1,0 +1,16 @@
+{
+  "name": "tslint-textmate",
+  "version": "1.0.0",
+  "description": "TSLint support for TextMate",
+  "main": "src/app.ts",
+  "author": "Nate Silva <nate@natesilva.com>",
+  "license": "BSD",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.5",
+    "ts-node": "^2.1.0",
+    "typescript": "^2.1.6"
+  }
+}
