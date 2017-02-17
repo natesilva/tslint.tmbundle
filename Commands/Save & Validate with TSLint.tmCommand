@@ -16,9 +16,9 @@ TNPM=${TM_NPM:-npm}
 
 if [ ! -d "${TM_BUNDLE_SUPPORT}/build" ]; then
     cd "${TM_BUNDLE_SUPPORT}"
-    ${TNPM} install
-    ${TNPM} run build
-    ${TNPM} prune --production
+    ${TNPM} install 1>/dev/null 2>&amp;1
+    ${TNPM} run build 1>/dev/null 2>&amp;1
+    ${TNPM} prune --production 1>/dev/null 2>&amp;1
 fi
 
 OUTPUT=$("${TNODE}" "${TM_BUNDLE_SUPPORT}/build/app.js" --lint)
@@ -27,7 +27,11 @@ if [[ ${OUTPUT} == *"!DOCTYPE html"* ]]; then
   exit_show_html "${OUTPUT}"
 fi
 
-exit_discard
+if [[ "${OUTPUT}" = "" ]]; then
+	exit_discard
+else
+	exit_show_tool_tip "${OUTPUT}"
+fi
 </string>
 	<key>input</key>
 	<string>document</string>

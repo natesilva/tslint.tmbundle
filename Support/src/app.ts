@@ -23,6 +23,7 @@ async function updateGutterMarks(filename: string, issues: Issue[]) {
   }
 }
 
+/** Run tslint --fix to correct any problems that can automatically be fixed. */
 async function fix() {
   let filename = process.env.TM_FILEPATH || null;
   if (!filename) {
@@ -37,6 +38,7 @@ async function fix() {
   console.log(fixResponse);
 }
 
+/** Run tslint and report the results. */
 async function main() {
     let filename = process.env.TM_FILEPATH || null;
     if (!filename) {
@@ -48,6 +50,12 @@ async function main() {
     const validator = new Validator(cwd);
     const issues = await validator.run(filename);
     updateGutterMarks(filename, issues);
+
+    if (issues.length) {
+      const msg = `TSLint: ${issues.length} problem` + (issues.length === 1 ? '' : 's') +
+        ' found';
+      console.log(msg);
+    }
 }
 
 switch (process.argv[2]) {
