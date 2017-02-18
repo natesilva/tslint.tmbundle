@@ -1,6 +1,6 @@
 {
   "name": "tslint-textmate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TSLint support for TextMate",
   "main": "src/app.ts",
   "author": "Nate Silva <nate@natesilva.com>",
