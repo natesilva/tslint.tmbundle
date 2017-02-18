@@ -1,9 +1,23 @@
+import 'source-map-support/register';
 import { Validator, Issue } from './validator';
 import * as path from 'path';
 import * as utils from './utils';
 import * as pug from 'pug';
 
 const SUPPORT_DIR = path.resolve(path.join(__dirname, '..'));
+
+/** helper to run the validator with current settings */
+async function runValidator() {
+  let filename = process.env.TM_FILEPATH || null;
+  if (!filename) {
+    console.error('only saved files can be checked using tslint');
+    process.exit(1);
+  }
+  filename = path.resolve(filename);
+  const cwd = process.env.TM_PROJECT_DIRECTORY || process.env.TM_DIRECTORY;
+  const validator = new Validator(cwd);
+  return await validator.run(filename);
+}
 
 /** Update the gutter marks in TextMate that indicate an issue on a particular line. */
 async function updateGutterMarks(filename: string, issues: Issue[]) {
@@ -43,62 +57,65 @@ async function fix() {
 
 /** Run tslint and report the results. */
 async function main() {
-    let filename = process.env.TM_FILEPATH || null;
-    if (!filename) {
-      console.error('only saved files can be checked using tslint');
-      process.exit(1);
-    }
-    filename = path.resolve(filename);
-    const cwd = process.env.TM_PROJECT_DIRECTORY || process.env.TM_DIRECTORY;
-    const validator = new Validator(cwd);
-    const issues = await validator.run(filename);
-    updateGutterMarks(filename, issues);
+  try {
+    const issues = await runValidator();
+    updateGutterMarks(path.resolve(process.env.TM_FILEPATH), issues);
 
     if (issues.length) {
       const msg = `TSLint: ${issues.length} problem` + (issues.length === 1 ? '' : 's') +
         ' found\n\nPress Shift-Ctrl-V for full report';
       console.log(msg);
     }
+  } catch (e) {
+    const msg = 'There was a problem running TSLint\n\n' +
+      'Press Shift-Ctrl-V for full report';
+    console.log(msg);
+  }
 }
 
 /** Run the validation report, which pops up in a separate window. */
 async function report() {
-  let filename = process.env.TM_FILEPATH || null;
-  if (!filename) {
-    console.error('only saved files can be checked using tslint');
-    process.exit(1);
-  }
-  filename = path.resolve(filename);
-  const cwd = process.env.TM_PROJECT_DIRECTORY || process.env.TM_DIRECTORY;
-  const validator = new Validator(cwd);
-  const issues = await validator.run(filename);
-
-  const report = pug.compileFile(
-    path.join(SUPPORT_DIR, 'templates', 'report.pug'),
-    { doctype: 'html', pretty: true }
-  );
-
+  // context that will be used to build the HTML output
   const now = new Date;
-  const timestamp = `${now.toLocaleDateString()} ${now.toLocaleDateString}`;
+  const timestamp = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
 
-  const context = {
+  const context: pug.LocalsObject = {
     SUPPORT_DIR: SUPPORT_DIR,
     timestamp: timestamp,
-    issues: issues,
+    issues: [],
     targetFilename: process.env.TM_FILEPATH,
-    relativeFilename: path.relative(cwd, process.env.TM_FILEPATH),
+    relativeFilename: path.relative(
+      process.env.TM_PROJECT_DIRECTORY || process.env.TM_DIRECTORY, process.env.TM_FILEPATH
+    ),
     targetUrl: `txmt://open?url=file://${process.env.TM_FILEPATH}`
   };
 
-  console.log(report(context));
+  try {
+    context['issues'] = await runValidator();
+    const report = pug.compileFile(
+      path.join(SUPPORT_DIR, 'templates', 'report.pug'),
+      { doctype: 'html' }
+    );
+    console.log(report(context));
+  } catch (e) {
+    const errorReport = pug.compileFile(
+      path.join(SUPPORT_DIR, 'templates', 'error.pug'),
+      { doctype: 'html' }
+    );
+    context['errorMessage'] = e.message;
+    context['searchPath'] = e.path;
+    console.log(errorReport(context));
+  }
 }
 
 switch (process.argv[2]) {
   case '--lint':
+    // console.log('would lint');
     main();
     break;
   case '--fix':
-    fix();
+    console.log('would fix');
+    // fix();
     break;
   case '--report':
     report();

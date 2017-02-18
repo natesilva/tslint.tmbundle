@@ -16,9 +16,9 @@ TNPM=${TM_NPM:-npm}
 
 if [ ! -d "${TM_BUNDLE_SUPPORT}/build" ]; then
     cd "${TM_BUNDLE_SUPPORT}"
-    ${TNPM} install 1>/dev/null 2>&1
-    ${TNPM} run build 1>/dev/null 2>&1
-    ${TNPM} prune --production 1>/dev/null 2>&1
+    ${TNPM} install 1>/dev/null 2>&amp;1
+    ${TNPM} run build 1>/dev/null 2>&amp;1
+    ${TNPM} prune --production 1>/dev/null 2>&amp;1
 fi
 
 OUTPUT=$("${TNODE}" "${TM_BUNDLE_SUPPORT}/build/app.js" --fix)

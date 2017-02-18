@@ -19,6 +19,14 @@ export interface Issue {
   ruleName: string;
 }
 
+export class ValidatorError extends Error {
+  public path: string;
+  constructor(message, path) {
+    super(message);
+    this.path = path;
+  }
+}
+
 export class Validator {
   private cwd: string;
 
@@ -79,8 +87,13 @@ export class Validator {
       env: env
     };
 
-    const results = await execFilePromise('tslint', args, options);
-    return JSON.parse(results.stdout);
+    try {
+      const results = await execFilePromise('tslint', args, options);
+      if (!results.stdout.trim().length) { return []};
+      return JSON.parse(results.stdout);
+    } catch (e) {
+      throw new ValidatorError(e.message, env.PATH);
+    }
   }
 
   /**
