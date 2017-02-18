@@ -29,6 +29,9 @@ Now install the bundle:
 
 ## FAQ
 
+* How do I get TypeScript syntax highlighting?
+    * Download the code from [Microsoft/TypeScript-TmLanguage](https://github.com/Microsoft/TypeScript-TmLanguage)
+      and double-click `TypeScript.tmLanguage`.
 * How do I run the `--fix` command?
     * Call up the TextMate “Select Bundle Item” shortcut (<kbd>Ctrl</kbd>-<kbd>Cmd</kbd>-<kbd>T</kbd>)
       and search for “Fix”.
