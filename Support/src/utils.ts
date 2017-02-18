@@ -8,7 +8,7 @@ export function execFilePromise(
 ): Promise<{stdout: string, stderr: string}> {
   return new Promise((resolve, reject) => {
     child_process.execFile(file, args, options, (err, stdout, stderr) => {
-      if (err && stderr) { return reject(err); }
+      if (err) { return reject(err); }
       resolve({stdout: stdout, stderr: stderr});
     });
   });

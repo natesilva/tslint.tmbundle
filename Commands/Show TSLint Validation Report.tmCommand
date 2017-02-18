@@ -12,19 +12,19 @@
 	<string>#!/usr/bin/env bash
 
 [[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
-
 set -f
-
-TNODE=${TM_NODE:-node}
 TNPM=${TM_NPM:-npm}
-
+require_cmd ${TNPM}
 if [ ! -d "${TM_BUNDLE_SUPPORT}/build" ]; then
+    require_cmd ${TNPM}
     cd "${TM_BUNDLE_SUPPORT}"
     ${TNPM} install 1>/dev/null 2>&amp;1
     ${TNPM} run build 1>/dev/null 2>&amp;1
     ${TNPM} prune --production 1>/dev/null 2>&amp;1
 fi
 
+TNODE=${TM_NODE:-node}
+require_cmd ${TNODE}
 OUTPUT=$("${TNODE}" "${TM_BUNDLE_SUPPORT}/build/app.js" --report)
 
 if [[ ${OUTPUT} == *"!DOCTYPE html"* ]]; then

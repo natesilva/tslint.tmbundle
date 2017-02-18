@@ -98,12 +98,12 @@ async function report() {
     );
     console.log(report(context));
   } catch (e) {
+    context['tsLintNotFound'] = (e.code === 'ENOENT');
+    context['errorMessage'] = e.message;
     const errorReport = pug.compileFile(
       path.join(SUPPORT_DIR, 'templates', 'error.pug'),
       { doctype: 'html' }
     );
-    context['errorMessage'] = e.message;
-    context['searchPath'] = e.path;
     console.log(errorReport(context));
   }
 }
