@@ -2,7 +2,7 @@
 
 Use the [TSLint](https://palantir.github.io/tslint/) TypeScript validator in [TextMate 2](https://github.com/textmate/textmate).
 
-<img src="https://natesilva.github.io/tslint.tmbundle/images/gutter-popup.gif" width="526" alt="TSLint errors and warnings in the TextMate gutter">
+<img src="https://natesilva.github.io/tslint.tmbundle/images/gutter-popup.gif" width="526" alt="TSLint problems in the TextMate gutter">
 
 ## Features
 
@@ -10,6 +10,11 @@ Use the [TSLint](https://palantir.github.io/tslint/) TypeScript validator in [Te
 * Auto-fix problems using the TSLint `--fix` command.
 * Clickable problem icons are displayed in the TextMate gutter.
 * Optionally get a detailed problem report by pressing <kbd>Shift</kbd>-<kbd>Ctrl</kbd>-<kbd>V</kbd>.
+
+<img src="https://natesilva.github.io/tslint.tmbundle/images/menu.png" width="300" style="width:300px;" alt="Use TSLint to auto-fix problems">
+
+<img src="https://natesilva.github.io/tslint.tmbundle/images/report.png" width="550" style="width:550px;" alt="Optional validation report">
+
 
 ## Install
 
