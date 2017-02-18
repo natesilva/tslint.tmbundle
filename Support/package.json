@@ -4,13 +4,18 @@
   "description": "TSLint support for TextMate",
   "main": "src/app.ts",
   "author": "Nate Silva <nate@natesilva.com>",
-  "license": "BSD",
+  "license": "BSD-3-Clause",
+  "private": true,
   "scripts": {
     "build": "tsc"
   },
   "devDependencies": {
     "@types/node": "^7.0.5",
+    "@types/pug": "^2.0.4",
     "ts-node": "^2.1.0",
     "typescript": "^2.1.6"
+  },
+  "dependencies": {
+    "pug": "^2.0.0-beta11"
   }
 }

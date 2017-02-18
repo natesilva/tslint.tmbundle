@@ -1,0 +1,13 @@
+//- Report the version number and provide a link to check for a newer version
+.small.text-center
+    a.open-external(href='https://github.com/natesilva/tslint.tmbundle')
+    | TSLint TextMate Bundle
+    span.version-number
+    | &mdash;
+    a.update-checker(href='#') Check for new version
+    .update-available.hidden
+        a.label.label-info.open-external(href='https://github.com/natesilva/tslint.tmbundle/releases/latest')
+            span.dingbat &#10039;
+            |  Update Available
+    .no-update.hidden You have the latest version
+    .update-error.text-danger.hidden Check for update failed

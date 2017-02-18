@@ -1,0 +1,34 @@
+//- The validation report.
+
+extends base.pug
+include mixins.pug
+
+block content
+    .panel(class=issues.length ? 'panel-default' : 'panel-success')
+        .panel-heading
+            h4
+                .pull-right.small
+                    if issues.length
+                        .label.label-danger
+                            +pluralize('problem', issues.length)
+                    else
+                        .label.label-success No problems found!
+                | Validation report for&nbsp;
+                a(href=targetUrl)
+                    tt
+                        b= targetFilename
+                p.small
+                    a.open-external(href='https://palantir.github.io/tslint/usage/tslint-json/')
+                        | How to configure TSLint
+        ul.list-group
+            each issue in issues
+                li.list-group-item
+                    span.symbol &#10060;&nbsp;
+                    a(href=issue.url) at line #{issue.line} position #{issue.character}:
+                    | &nbsp;
+                    tt.report #{issue.reason}
+                        if issue.shortname
+                            |  (
+                            a.open-external(href='https://palantir.github.io/tslint/rules/' + issue.shortname '/') #{issue.shortname}
+                            | )
+    include versioninfo.pug
