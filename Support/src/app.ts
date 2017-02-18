@@ -110,12 +110,10 @@ async function report() {
 
 switch (process.argv[2]) {
   case '--lint':
-    // console.log('would lint');
     main();
     break;
   case '--fix':
-    console.log('would fix');
-    // fix();
+    fix();
     break;
   case '--report':
     report();
