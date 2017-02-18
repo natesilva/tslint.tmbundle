@@ -29,7 +29,7 @@ async function updateGutterMarks(filename: string, issues: Issue[]) {
       let msg = issue.failure;
       if (issue.ruleName) { msg += ` (${issue.ruleName})`; }
       args.push(`--set-mark=warning:[TSLint] ${msg}`);
-      args.push(`--line=${issue.startPosition.line + 1}:${issue.startPosition.character}`);
+      args.push(`--line=${issue.startPosition.line + 1}:${issue.startPosition.character + 1}`);
     });
     args.push(filename);
     return args;
