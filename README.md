@@ -29,8 +29,11 @@ Now install the bundle:
 
 ## FAQ
 
+* How do I run the `--fix` command?
+    * Call up the TextMate “Select Bundle Item” shortcut (<kbd>Ctrl</kbd>-<kbd>Cmd</kbd>-<kbd>T</kbd>)
+      and search for “Fix”.
 * Which version of TSLint is used?
-    * Whichever version of TSLint you have installed locally in your project. If you don’t
+    * Whichever version you have installed locally in your project. If you don’t
       have it installed locally, then whichever version was installed globally.
 * Why doesn’t the validator include its own copy of TSLint?
     * Because it might be outdated or the wrong version. Best practice is to install
