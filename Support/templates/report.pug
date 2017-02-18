@@ -16,7 +16,7 @@ block content
                 | Validation report for&nbsp;
                 a(href=targetUrl)
                     tt
-                        b= targetFilename
+                        b= relativeFilename
                 p.small
                     a.open-external(href='https://palantir.github.io/tslint/usage/tslint-json/')
                         | How to configure TSLint
@@ -24,11 +24,12 @@ block content
             each issue in issues
                 li.list-group-item
                     span.symbol &#10060;&nbsp;
-                    a(href=issue.url) at line #{issue.line} position #{issue.character}:
+                    a(href='txmt://open?url=file://' + targetFilename + '&line=' + (issue.startPosition.line + 1) + '&column=' + (issue.startPosition.character + 1))
+                        | at line #{issue.startPosition.line + 1} position #{issue.startPosition.character + 1}:
                     | &nbsp;
-                    tt.report #{issue.reason}
-                        if issue.shortname
+                    tt.report #{issue.failure}
+                        if issue.ruleName
                             |  (
-                            a.open-external(href='https://palantir.github.io/tslint/rules/' + issue.shortname '/') #{issue.shortname}
+                            a.open-external(href='https://palantir.github.io/tslint/rules/' + issue.ruleName '/') #{issue.ruleName}
                             | )
     include versioninfo.pug

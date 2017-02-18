@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>autoRefresh</key>
+	<array>
+		<string>DocumentSaved</string>
+	</array>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env bash
+
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
+
+set -f
+
+TNODE=${TM_NODE:-node}
+TNPM=${TM_NPM:-npm}
+
+if [ ! -d "${TM_BUNDLE_SUPPORT}/build" ]; then
+    cd "${TM_BUNDLE_SUPPORT}"
+    ${TNPM} install 1>/dev/null 2>&amp;1
+    ${TNPM} run build 1>/dev/null 2>&amp;1
+    ${TNPM} prune --production 1>/dev/null 2>&amp;1
+fi
+
+OUTPUT=$("${TNODE}" "${TM_BUNDLE_SUPPORT}/build/app.js" --report)
+
+if [[ ${OUTPUT} == *"!DOCTYPE html"* ]]; then
+  exit_show_html "${OUTPUT}"
+fi
+
+if [[ "${OUTPUT}" = "" ]]; then
+	exit_discard
+else
+	exit_show_tool_tip "${OUTPUT}"
+fi
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^V</string>
+	<key>name</key>
+	<string>Show TSLint Validation Report</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>source.ts</string>
+	<key>uuid</key>
+	<string>C92C4926-1F43-4823-A029-94669A70C58E</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

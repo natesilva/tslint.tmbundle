@@ -1,3 +1,7 @@
 .overflow-auto {
     overflow: auto;
 }
+
+code, tt {
+    font-family: SF-Mono, Menlo, Monaco, monospace;
+}
