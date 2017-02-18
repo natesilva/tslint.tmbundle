@@ -2,7 +2,7 @@
 
 Use the [TSLint](https://palantir.github.io/tslint/) TypeScript validator in [TextMate 2](https://github.com/textmate/textmate).
 
-<img src="https://natesilva.github.io/tslint.tmbundle/images/gutter-popup.gif" width="526" alt="TSLint errors and warnings in the TextMate gutter"></video>
+<img src="https://natesilva.github.io/tslint.tmbundle/images/gutter-popup.gif" width="526" alt="TSLint errors and warnings in the TextMate gutter">
 
 ## Features
 
