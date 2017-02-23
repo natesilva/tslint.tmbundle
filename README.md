@@ -51,9 +51,4 @@ Now install the bundle:
 * Shouldn’t you be using Visual Studio Code?
     * If there is an “official” text editor for writing TypeScript, it would have to be
       VS Code. It includes rich Intellisense auto-completion and is itself written in
-      TypeScript. But some developers prefer TextMate, and they need linting support. Here
-      are some of the reasons I’ve heard (and, yes, they are subjective):
-        * TextMate is faster
-        * VS Code doesn’t feel native enough
-        * TextMate font rendering is better
-        * I know how to use TextMate and don’t want to switch editors
+      TypeScript. But some developers prefer TextMate, and they need linting support.
